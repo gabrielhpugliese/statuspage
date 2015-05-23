@@ -5,12 +5,10 @@ var IncidentAction = React.createClass({
   render: function () {
     return (
       <div className="incident-action">
-        <div className="incident-action__name">
+        <span className="incident-action__name">
           Completed -
-        </div>
-        <div className="incident-action__description">
+        </span>
           We are going to perform scheduled database maintenance on travis-ci.org. This is expected to take less than an hour. The site and API will be unavailable during this time. Incoming build requests will still be picked up, and processed later.
-        </div>
         <div className="incident-action__date">
           May 23, 09:36 UTC
         </div>
