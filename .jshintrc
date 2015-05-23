@@ -71,7 +71,7 @@
     "couch"         : false,    // CouchDB
     "devel"         : true,     // Development/debugging (alert, confirm, etc)
     "dojo"          : false,    // Dojo Toolkit
-    "jasmine"       : false,    // Jasmine
+    "jasmine"       : true,    // Jasmine
     "jquery"        : false,    // jQuery
     "mocha"         : true,     // Mocha
     "mootools"      : false,    // MooTools
@@ -89,7 +89,17 @@
 
     // Custom Globals
     "globals"       : {
+        "Meteor": true,
         "ReactMeteor": true,
-        "React": true
+        "React": true,
+        "Mongo": true,
+        "Package": true,
+        "HTTP": true,
+        "check": true,
+        "MeteorStubs": true,
+        "Npm": true,
+
+        "Results": true,
+        "SystemPinger": true
     }
 }

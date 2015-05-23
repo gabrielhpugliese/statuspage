@@ -5,7 +5,9 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
 reactjs:react
 mquandalle:stylus
+velocity:html-reporter
+sanjo:jasmine
+momentjs:moment
+system-pinger
