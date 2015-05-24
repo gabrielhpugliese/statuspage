@@ -3,14 +3,13 @@ var Future = Npm.require('fibers/future');
 
 var _SystemPinger = function () {
   this.collection = SystemsColl;
-  this.collection._ensureIndex({name: 1});
 };
 
 _SystemPinger.prototype.addSystem = function (name, endpoint) {
   check(name, String);
   check(endpoint, String);
 
-  this.collection.insert({
+  return this.collection.insert({
     name: name,
     endpoint: endpoint
   });

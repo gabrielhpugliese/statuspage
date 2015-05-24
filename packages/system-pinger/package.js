@@ -1,4 +1,5 @@
 'use strict';
+var both = ['client', 'server'];
 
 Package.describe({
   summary: 'Pings the system',
@@ -8,8 +9,6 @@ Package.describe({
 });
 
 Package.onUse(function (api) {
-  var both = ['client', 'server'];
-
   api.versionsFrom('METEOR@0.9.0');
 
   api.use([
@@ -27,7 +26,9 @@ Package.onUse(function (api) {
 });
 
 Package.onTest(function (api) {
-  api.use('sanjo:jasmine');
+  api.use('sanjo:jasmine@0.13.6');
   api.use('system-pinger');
-  api.addFiles('tests/server/system-pinger-spec.js', 'server');
+  api.use(['http'], both);
+
+  api.addFiles('tests/jasmine/server/unit/system-pinger-spec.js', 'server');
 });
