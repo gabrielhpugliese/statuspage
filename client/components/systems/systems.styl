@@ -1,19 +1,22 @@
 $systems__border = 1px solid #BDBDBD
 $systems__border-radius = 4px
 
-.systems__item
+.systems__system
   border-top $systems__border
   border-right $systems__border
   border-left $systems__border
   padding 15px
   font-weight 500
 
-.systems__item:first-child
+.systems__system:first-child
   border-radius $systems__border-radius $systems__border-radius 0 0
 
-.systems__item:last-child
+.systems__system:last-child
   border-bottom $systems__border
   border-radius 0 0 $systems__border-radius $systems__border-radius
+
+.systems__system:only-child
+  border-radius $systems__border-radius
 
 .systems__system-name
   col(2/3)

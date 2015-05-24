@@ -98,9 +98,10 @@
         "check": true,
         "MeteorStubs": true,
         "Npm": true,
+        "_": true,
 
-        "Results": true,
+        "ResultsColl": true,
         "SystemPinger": true,
-        "Systems": true
+        "SystemsColl": true
     }
 }

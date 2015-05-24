@@ -1,2 +1,5 @@
-Results = new Mongo.Collection('results');
-Systems = new Mongo.Collection('systems');
+'use strict';
+
+ResultsColl = new Mongo.Collection('results');
+SystemsColl = new Mongo.Collection('systems');
+

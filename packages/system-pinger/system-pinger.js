@@ -2,7 +2,7 @@
 var Future = Npm.require('fibers/future');
 
 var _SystemPinger = function () {
-  this.collection = Systems;
+  this.collection = SystemsColl;
   this.collection._ensureIndex({name: 1});
 };
 
@@ -42,7 +42,7 @@ _SystemPinger.prototype.pingAndSave = function (name) {
 
   var statusCode = this._getStatus(name);
 
-  Results.insert({
+  ResultsColl.insert({
     name: name,
     statusCode: statusCode,
     when: new Date()
