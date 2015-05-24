@@ -2,7 +2,7 @@
 var Future = Npm.require('fibers/future');
 
 var _SystemPinger = function () {
-  this.collection = new Mongo.Collection('systems');
+  this.collection = Systems;
   this.collection._ensureIndex({name: 1});
 };
 
@@ -38,9 +38,19 @@ _SystemPinger.prototype._getStatus = function (name) {
 };
 
 _SystemPinger.prototype.pingAndSave = function (name) {
+  check(name, String);
+
   var statusCode = this._getStatus(name);
 
-  Results.insert({name: name, statusCode: statusCode});
+  Results.insert({
+    name: name,
+    statusCode: statusCode,
+    when: new Date()
+  });
+
+  this.collection.update({name: name}, {$set: {
+    lastStatusCode: statusCode
+  }});
 };
 
 SystemPinger = new _SystemPinger();

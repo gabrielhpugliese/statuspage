@@ -12,11 +12,13 @@ Package.onUse(function (api) {
 
   api.versionsFrom('METEOR@0.9.0');
 
-  api.use(['mongo', 'http'], 'server');
+  api.use(['mongo', 'http', 'check'], both);
 
-  api.addFiles(['results.js', 'system-pinger.js', 'main.js'], 'server');
+  api.addFiles(['collections.js'], both);
+  api.addFiles(['system-pinger.js', 'main.js'], 'server');
 
-  api.export('SystemPinger', both);
+  api.export('SystemPinger', 'server');
+  api.export(['Results', 'Systems'], both);
 });
 
 Package.onTest(function (api) {
