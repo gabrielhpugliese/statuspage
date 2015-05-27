@@ -18,7 +18,7 @@ Package.onUse(function (api) {
     'meteor-platform'
   ], both);
 
-  api.addFiles(['collections.js'], both);
+  api.addFiles(['system.js', 'collections.js'], both);
   api.addFiles(['publications.js', 'system-pinger.js', 'main.js'], 'server');
 
   api.export('SystemPinger', 'server');

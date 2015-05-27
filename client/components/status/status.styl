@@ -2,9 +2,24 @@
 
 .status
   color white
-  area green
   overflow hidden
   margin-bottom 75px
+
+.status--operational
+  @extend .status
+  area green
+
+.status--not-found
+  @extend .status
+  area yellow
+
+.status--defective
+  @extend .status
+  area red
+
+.status--unknown
+  @extend .status
+  area orange
 
 .status__title
   col(2/3)

@@ -103,6 +103,7 @@
 
         "ResultsColl": true,
         "SystemPinger": true,
-        "SystemsColl": true
+        "SystemsColl": true,
+        "System": true
     }
 }

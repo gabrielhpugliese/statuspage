@@ -32,7 +32,7 @@ var Systems = ReactMeteor.createClass({
       }
     };
 
-    return statuses[Math.floor(statusCode / 100)];
+    return statuses[statusCode];
   },
 
   render: function () {
@@ -41,7 +41,7 @@ var Systems = ReactMeteor.createClass({
     return (
       <div className="systems">
         {_.map(this.state.systems, function (system) {
-          var statusVars = self.getStatusVariables(system.lastStatusCode);
+          var statusVars = self.getStatusVariables(system.getStatusCodeDigit());
           var statusClass = 'systems__system-status--' + statusVars.class;
 
           return (
