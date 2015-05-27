@@ -16,14 +16,23 @@ var Systems = ReactMeteor.createClass({
     };
   },
 
-  getStatusDescription: function (statusCode) {
+  getStatusVariables: function (statusCode) {
     var statuses = {
-      200: 'Operational',
-      500: 'Defective',
-      404: 'Not found'
+      2: {
+        text: 'Operational',
+        class: 'operational'
+      },
+      5: {
+        text: 'Defective',
+        class: 'defective'
+      },
+      4: {
+        text: 'Not found',
+        class: 'not-found'
+      }
     };
 
-    return statuses[statusCode];
+    return statuses[Math.floor(statusCode / 100)];
   },
 
   render: function () {
@@ -32,13 +41,16 @@ var Systems = ReactMeteor.createClass({
     return (
       <div className="systems">
         {_.map(this.state.systems, function (system) {
+          var statusVars = self.getStatusVariables(system.lastStatusCode);
+          var statusClass = 'systems__system-status--' + statusVars.class;
+
           return (
             <div className="systems__system">
               <div className="systems__system-name">
                 {system.name}
               </div>
-              <div className="systems__system-status">
-                {self.getStatusDescription(system.lastStatusCode)}
+              <div className={statusClass}>
+                {statusVars.text}
               </div>
             </div>
           );

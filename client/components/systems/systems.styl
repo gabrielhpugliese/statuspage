@@ -27,4 +27,15 @@ $systems__border-radius = 4px
   col(1/3)
   text-align right
   fs 0.6rem
+
+.systems__system-status--operational
+  @extend .systems__system-status
   color green
+
+.systems__system-status--defective
+  @extend .systems__system-status
+  color red
+
+.systems__system-status--not-found
+  @extend .systems__system-status
+  color yellow

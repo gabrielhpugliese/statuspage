@@ -81,9 +81,11 @@ describe('SystemPinger', function () {
 
     expect(systemsUpdate).toHaveBeenCalledWith(
       {name: name},
-      {$set: {lastStatusCode: lastStatusCode}}
+      {$set: {
+        lastStatusCode: lastStatusCode,
+        updatedAt: jasmine.any(Date)
+      }}
     );
-
   });
 
   it('pings and save a system', function () {

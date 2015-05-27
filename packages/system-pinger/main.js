@@ -5,4 +5,4 @@ Meteor.setInterval(function () {
     console.log('Pinging', doc.name);
     SystemPinger.pingAndSave(doc.name);
   });
-}, 60 * 1000);
+}, 10 * 1000);

@@ -21,17 +21,28 @@ _SystemPinger.prototype._getStatus = function (name) {
 
   var system = this.systems.findOne({name: name});
   var future = new Future();
+  var errorCodes = {
+    'ENOTFOUND': 404
+  };
 
   if (! system) {
     throw new Meteor.Error('Could not find that system.');
   }
 
   HTTP.get(system.endpoint, Meteor.bindEnvironment(function (err, res) {
+    var statusCode;
+
     if (err) {
-      return future.throw(err);
+      if (err.response) {
+        statusCode = err.response.statusCode;
+      } else {
+        statusCode = errorCodes[err.code];
+      }
+    } else {
+      statusCode = res.statusCode;
     }
 
-    future.return(res.statusCode);
+    future.return(statusCode);
   }));
 
   return future.wait();
@@ -48,7 +59,8 @@ _SystemPinger.prototype._save = function (name, statusCode) {
   });
 
   this.systems.update({name: name}, {$set: {
-    lastStatusCode: statusCode
+    lastStatusCode: statusCode,
+    updatedAt: new Date()
   }});
 
   return true;
