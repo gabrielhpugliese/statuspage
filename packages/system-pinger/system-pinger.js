@@ -2,14 +2,15 @@
 var Future = Npm.require('fibers/future');
 
 var _SystemPinger = function () {
-  this.collection = SystemsColl;
+  this.systems = SystemsColl;
+  this.results = ResultsColl;
 };
 
 _SystemPinger.prototype.addSystem = function (name, endpoint) {
   check(name, String);
   check(endpoint, String);
 
-  return this.collection.insert({
+  return this.systems.insert({
     name: name,
     endpoint: endpoint
   });
@@ -18,7 +19,7 @@ _SystemPinger.prototype.addSystem = function (name, endpoint) {
 _SystemPinger.prototype._getStatus = function (name) {
   check(name, String);
 
-  var system = this.collection.findOne({name: name});
+  var system = this.systems.findOne({name: name});
   var future = new Future();
 
   if (! system) {
@@ -36,20 +37,29 @@ _SystemPinger.prototype._getStatus = function (name) {
   return future.wait();
 };
 
+_SystemPinger.prototype._save = function (name, statusCode) {
+  check(name, String);
+  check(statusCode, Number);
+
+  this.results.insert({
+    name: name,
+    statusCode: statusCode,
+    updatedAt: new Date()
+  });
+
+  this.systems.update({name: name}, {$set: {
+    lastStatusCode: statusCode
+  }});
+
+  return true;
+};
+
 _SystemPinger.prototype.pingAndSave = function (name) {
   check(name, String);
 
   var statusCode = this._getStatus(name);
 
-  ResultsColl.insert({
-    name: name,
-    statusCode: statusCode,
-    when: new Date()
-  });
-
-  this.collection.update({name: name}, {$set: {
-    lastStatusCode: statusCode
-  }});
+  this._save(name, statusCode);
 };
 
 SystemPinger = new _SystemPinger();
