@@ -1,6 +1,7 @@
 @import 'jeet'
 
 .head
+  position relative
   height 315px
   position relative
   margin-bottom 75px
@@ -23,3 +24,24 @@
   float right
   margin 0
   uppercase()
+
+.head__subscribe-button--full
+  @extend .head__subscribe-button
+  width 100%
+
+.head__subscribe-box
+  position absolute
+  width 310px
+  border-radius 4px
+  box-shadow 0 0 10px rgba(0, 0, 0, 0.2)
+  background white
+  padding 15px
+  fs 0.6rem
+  top 94%
+  right 2%
+  line-height 23px
+
+.head__subscribe-input
+  input()
+  width 100%
+  margin-bottom 5px
