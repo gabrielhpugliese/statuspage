@@ -53,11 +53,15 @@ var Status = ReactMeteor.createClass({
     return {
       title: infos[code].title,
       class: infos[code].class,
-      updatedAt: system.updatedAt
+      updatedAt: moment(system.updatedAt).fromNow()
     };
   },
 
   render: function () {
+    if (_.isEmpty(this.state.systems)) {
+      return false;
+    }
+
     var system = this.getSystemByMaxStatusCode();
     var infos = this.getStatusInformations(system);
     var className = 'status--' + infos.class;

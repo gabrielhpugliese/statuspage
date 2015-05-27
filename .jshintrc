@@ -100,6 +100,7 @@
         "Npm": true,
         "_": true,
         "mock": true,
+        "moment": true,
 
         "ResultsColl": true,
         "SystemPinger": true,
