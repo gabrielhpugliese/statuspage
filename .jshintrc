@@ -101,10 +101,13 @@
         "_": true,
         "mock": true,
         "moment": true,
+        "Email": true,
 
         "ResultsColl": true,
         "SystemPinger": true,
         "SystemsColl": true,
-        "System": true
+        "System": true,
+        "SubscriptionsColl": true,
+        "SubscriptionManager": true
     }
 }
