@@ -72,7 +72,7 @@ var Status = ReactMeteor.createClass({
           {infos.title}
         </div>
         <div className="status__refresh-time">
-          {infos.updatedAt}
+          Refreshed {infos.updatedAt}
         </div>
       </div>
     );

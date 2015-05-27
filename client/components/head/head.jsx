@@ -26,12 +26,23 @@ var Head = ReactMeteor.createClass({
   templateName: 'Head',
 
   propTypes: {
-    imageUrl: React.PropTypes.string
+    imageUrl: React.PropTypes.string,
+    title: React.PropTypes.string
   },
 
   getDefaultProps: function () {
+    var settings = Meteor.settings;
+
+    if (! settings || _.isEmpty(settings.public)) {
+      return {
+        imageUrl: '',
+        title: 'StatusPage'
+      };
+    }
+
     return {
-      imageUrl: ''
+      imageUrl: settings.public.head.imageUrl || '',
+      title: settings.public.head.title || ''
     };
   },
 
@@ -42,7 +53,7 @@ var Head = ReactMeteor.createClass({
 
     return (
       <div className="head" style={style}>
-        <SubscribeStrip title="CodersTV" />
+        <SubscribeStrip title={this.props.title} />
       </div>
     );
   }
