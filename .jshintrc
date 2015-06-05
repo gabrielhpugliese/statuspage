@@ -102,6 +102,7 @@
         "mock": true,
         "moment": true,
         "Email": true,
+        "validator": true,
 
         "ResultsColl": true,
         "SystemPinger": true,

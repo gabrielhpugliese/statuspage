@@ -16,11 +16,15 @@ _SubscriptionManager.prototype._sendSubscribedEmail = function (email) {
 
 _SubscriptionManager.prototype.addEmail = function (email) {
   check(email, String);
+  if (! validator.isEmail(email)) {
+    throw new Meteor.Error('invalid-email', 'E-mail is invalid.');
+  }
 
   this.subscriptions.insert({
     email: email
   });
   this._sendSubscribedEmail(email);
+  console.log('Email ' + email + ' just subscribed.');
 };
 
 _SubscriptionManager.prototype.sendEmail = function (email, subject, body) {

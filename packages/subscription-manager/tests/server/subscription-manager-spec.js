@@ -35,6 +35,28 @@ describe('Subscription Manager', function () {
     });
   });
 
+  it('validates email before saving', function () {
+    try {
+      SubscriptionManager.addEmail('asaaa');
+    } catch (err) {
+      expect(err).toBeDefined();
+    }
+
+    expect(SubscriptionManager.addEmail).toThrow();
+
+    var insert = spyOn(SubscriptionManager.subscriptions, 'insert');
+    var sendSubscribedEmail = spyOn(SubscriptionManager, '_sendSubscribedEmail');
+
+    try {
+      SubscriptionManager.addEmail(email);
+    } catch (err) {
+      expect(err).not.toBeDefined();
+    }
+
+    expect(insert).toHaveBeenCalled();
+    expect(sendSubscribedEmail).toHaveBeenCalled();
+  });
+
   it('validates input before sending email', function () {
     try {
       SubscriptionManager.sendEmail({}, '', '');

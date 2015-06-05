@@ -4,13 +4,15 @@
 var SubscribeBox = React.createClass({
   propTypes: {
     visible: React.PropTypes.bool.isRequired,
-    onSubmit: React.PropTypes.func.isRequired
+    onSubmit: React.PropTypes.func.isRequired,
+    error: React.PropTypes.string
   },
 
   getDefaultProps: function () {
     return {
       visible: false,
-      onSubmit: null
+      onSubmit: null,
+      error: ''
     };
   },
 
@@ -18,11 +20,16 @@ var SubscribeBox = React.createClass({
     var style = {
       display: this.props.visible ? 'block' : 'none'
     };
+    var inputClassName = 'head__subscribe-input';
+
+    if (this.props.error) {
+      inputClassName += '--error';
+    }
 
     return (
       <form className="head__subscribe-box" style={style} onSubmit={this.props.onSubmit}>
         Get notifications when there is an update or incident.
-        <input ref="email" className="head__subscribe-input" placeholder="email"></input>
+        <input ref="email" className={inputClassName} placeholder="email"></input>
         <button className="head__subscribe-button--full">Subscribe via email</button>
       </form>
     );
@@ -92,16 +99,35 @@ var Head = ReactMeteor.createClass({
     this.toggleSubscribeBox();
   },
 
+  saveSubscribeError: function (errorMessage) {
+    this.setState({
+      subscribeError: errorMessage
+    });
+  },
+
   onSubscribeSubmit: function (event) {
     var self = this;
-    var email = this.refs.subscribe.refs.email.getDOMNode().value.trim();
+    var el = this.refs.subscribe.refs.email.getDOMNode();
+    var email = el.value.trim();
 
     event.preventDefault();
 
+    if (! validator.isEmail(email)) {
+      return self.saveSubscribeError('Invalid e-mail.');
+    }
+
     Meteor.call('SubscriptionManager/subscribe', email, function (err) {
+      var message = '';
+
       if (! err) {
         self.toggleSubscribeBox();
+        el.value = '';
+        // TODO: show success message
+      } else {
+        message = err.reason;
       }
+
+      self.saveSubscribeError(message);
     });
   },
 
@@ -113,7 +139,7 @@ var Head = ReactMeteor.createClass({
     return (
       <div className="head" style={style}>
         <SubscribeStrip title={this.props.title} onSubscribeClick={this.onSubscribeClick}/>
-        <SubscribeBox ref="subscribe" visible={this.state.subscribeBoxVisible} onSubmit={this.onSubscribeSubmit} />
+        <SubscribeBox ref="subscribe" error={this.state.subscribeError} visible={this.state.subscribeBoxVisible} onSubmit={this.onSubscribeSubmit} />
       </div>
     );
   }

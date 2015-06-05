@@ -12,19 +12,15 @@ Package.onUse(function (api) {
   api.versionsFrom('METEOR@0.9.0');
 
   api.use([
-    'mongo',
-    'email',
     'meteor-platform',
-    'system-pinger'
-  ], both);
-
-  api.use([
+    'email',
     'event-emitter',
-    'email-builder'
+    'email-builder',
+    'logandk:validator'
   ], 'server');
 
-  api.addFiles(['collections.js',], both);
   api.addFiles([
+    'collections.js',
     'main.js',
     'subscription-manager.js',
     'methods.js'
