@@ -109,6 +109,7 @@
         "System": true,
         "SubscriptionsColl": true,
         "SubscriptionManager": true,
-        "EventEmitter": true
+        "EventEmitter": true,
+        "EmailBuilder": true
     }
 }

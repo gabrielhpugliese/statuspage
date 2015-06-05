@@ -1,15 +1,26 @@
 'use strict';
 
+var Fiber = Npm.require('fibers');
+
 var _SubscriptionManager = function (subscriptionsColl) {
+  var publicSettings = Meteor.settings.public;
   this.subscriptions = subscriptionsColl;
+  this.emailBuilder = new EmailBuilder(publicSettings && publicSettings.head.title);
+};
+
+_SubscriptionManager.prototype._sendSubscribedEmail = function (email) {
+  var emailData = this.emailBuilder.subscribed(email);
+
+  return this.sendEmail(email, emailData.subject, emailData.body);
 };
 
 _SubscriptionManager.prototype.addEmail = function (email) {
   check(email, String);
 
-  return this.subscriptions.insert({
+  this.subscriptions.insert({
     email: email
   });
+  this._sendSubscribedEmail(email);
 };
 
 _SubscriptionManager.prototype.sendEmail = function (email, subject, body) {
@@ -17,14 +28,14 @@ _SubscriptionManager.prototype.sendEmail = function (email, subject, body) {
   check(subject, String);
   check(body, String);
 
-  subject = '[' + Meteor.settings.public.head.title + ' status] ' + subject;
-
-  return Email.send({
-    to: email,
-    from: Meteor.settings.emailFrom,
-    subject: subject,
-    text: body
-  });
+  new Fiber(function () {
+    Email.send({
+      to: email,
+      from: Meteor.settings.emailFrom,
+      subject: subject,
+      text: body
+    });
+  }).run();
 };
 
 _SubscriptionManager.prototype.getEmailsCursor = function () {
@@ -36,11 +47,10 @@ _SubscriptionManager.prototype.sendEmailToAll = function (systemName, statusCode
   check(statusCodeNow, Number);
   check(statusCodeBefore, Number);
 
-  var emailSubject = 'System ' + systemName + ' status change';
-  var emailBody = 'The system ' + systemName + ' has from status ' + statusCodeBefore + 'changed to ' + statusCodeNow + ' status code.';
+  var email = this.emailBuilder.statusChanged(systemName, statusCodeNow, statusCodeBefore);
 
-  this.getEmailsCursor.forEach(function () {
-    this.sendEmail(systemName, emailSubject, emailBody);
+  this.getEmailsCursor().forEach(function () {
+    this.sendEmail(systemName, email.subject, email.body);
   }, this);
 };
 

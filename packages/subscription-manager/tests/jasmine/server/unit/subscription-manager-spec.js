@@ -1,6 +1,15 @@
 describe('Subscription Manager', function () {
   'use strict';
   var email = 'aaa@bbb.com';
+  var subject = 'subject';
+  var body = 'body';
+  var emailBuilder;
+  var send;
+
+  beforeEach(function () {
+    send = spyOn(Email, 'send');
+    emailBuilder = new EmailBuilder('title');
+  });
 
   it('validates input before saving email addresses', function () {
     try {
@@ -14,6 +23,10 @@ describe('Subscription Manager', function () {
 
   it('saves email addresses', function () {
     var insert = spyOn(SubscriptionManager.subscriptions, 'insert');
+    spyOn(emailBuilder, 'subscribed').and.returnValue({
+      subject: 'subject',
+      body: 'body'
+    });
 
     SubscriptionManager.addEmail(email);
 
@@ -49,9 +62,6 @@ describe('Subscription Manager', function () {
   });
 
   it('sends emails', function () {
-    var send = spyOn(Email, 'send');
-    var subject = 'SUBJECT';
-    var body = 'BODY';
     Meteor.settings = {
       public: {
         head: {
@@ -66,7 +76,7 @@ describe('Subscription Manager', function () {
     expect(send).toHaveBeenCalledWith({
       to: email,
       from: Meteor.settings.emailFrom,
-      subject: '[' + Meteor.settings.public.head.title + ' status] ' + subject,
+      subject: subject,
       text: body
     });
   });
@@ -77,5 +87,18 @@ describe('Subscription Manager', function () {
     SubscriptionManager.getEmailsCursor();
 
     expect(find).toHaveBeenCalledWith({});
+  });
+
+  it('sends subscribed email', function () {
+    var subscribed = spyOn(EmailBuilder.prototype, 'subscribed').and.returnValue({
+      subject: subject,
+      body: body
+    });
+    var sendEmail = spyOn(SubscriptionManager, 'sendEmail');
+
+    SubscriptionManager._sendSubscribedEmail(email);
+
+    expect(subscribed).toHaveBeenCalledWith(email);
+    expect(sendEmail).toHaveBeenCalledWith(email, subject, body);
   });
 });

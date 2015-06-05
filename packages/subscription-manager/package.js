@@ -19,20 +19,28 @@ Package.onUse(function (api) {
   ], both);
 
   api.use([
-    'event-emitter'
+    'event-emitter',
+    'email-builder'
   ], 'server');
 
   api.addFiles(['collections.js',], both);
-  api.addFiles(['main.js', 'subscription-manager.js'], 'server');
+  api.addFiles([
+    'main.js',
+    'subscription-manager.js'
+  ], 'server');
 
   api.export(['SubscriptionsColl'], both);
-  api.export('SubscriptionManager', 'server');
+  api.export(['SubscriptionManager'], 'server');
 });
 
 Package.onTest(function (api) {
+  var testsFolder = 'tests/jasmine/server/unit/';
+
   api.use('sanjo:jasmine@0.13.6');
   api.use('subscription-manager');
-  api.use(['email'], 'server');
+  api.use(['email', 'email-builder'], 'server');
 
-  api.addFiles('tests/jasmine/server/unit/subscription-manager-spec.js', 'server');
+  api.addFiles([
+    testsFolder + 'subscription-manager-spec.js'
+  ], 'server');
 });
