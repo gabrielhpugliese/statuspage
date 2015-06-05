@@ -26,7 +26,8 @@ Package.onUse(function (api) {
   api.addFiles(['collections.js',], both);
   api.addFiles([
     'main.js',
-    'subscription-manager.js'
+    'subscription-manager.js',
+    'methods.js'
   ], 'server');
 
   api.export(['SubscriptionsColl'], both);
@@ -41,6 +42,7 @@ Package.onTest(function (api) {
   api.use(['email', 'email-builder'], 'server');
 
   api.addFiles([
-    testsFolder + 'subscription-manager-spec.js'
+    testsFolder + 'subscription-manager-spec.js',
+    testsFolder + 'methods-spec.js'
   ], 'server');
 });

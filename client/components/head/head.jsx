@@ -22,7 +22,7 @@ var SubscribeBox = React.createClass({
     return (
       <form className="head__subscribe-box" style={style} onSubmit={this.props.onSubmit}>
         Get notifications when there is an update or incident.
-        <input className="head__subscribe-input" placeholder="email"></input>
+        <input ref="email" className="head__subscribe-input" placeholder="email"></input>
         <button className="head__subscribe-button--full">Subscribe via email</button>
       </form>
     );
@@ -82,15 +82,27 @@ var Head = ReactMeteor.createClass({
     };
   },
 
-  onSubscribeClick: function () {
+  toggleSubscribeBox: function () {
     this.setState({
       subscribeBoxVisible: ! this.state.subscribeBoxVisible
     });
   },
 
+  onSubscribeClick: function () {
+    this.toggleSubscribeBox();
+  },
+
   onSubscribeSubmit: function (event) {
+    var self = this;
+    var email = this.refs.subscribe.refs.email.getDOMNode().value.trim();
+
     event.preventDefault();
-    debugger;
+
+    Meteor.call('SubscriptionManager/subscribe', email, function (err) {
+      if (! err) {
+        self.toggleSubscribeBox();
+      }
+    });
   },
 
   render: function () {
@@ -101,7 +113,7 @@ var Head = ReactMeteor.createClass({
     return (
       <div className="head" style={style}>
         <SubscribeStrip title={this.props.title} onSubscribeClick={this.onSubscribeClick}/>
-        <SubscribeBox visible={this.state.subscribeBoxVisible} onSubmit={this.onSubscribeSubmit} />
+        <SubscribeBox ref="subscribe" visible={this.state.subscribeBoxVisible} onSubmit={this.onSubscribeSubmit} />
       </div>
     );
   }
