@@ -1,11 +1,11 @@
 'use strict';
 
 var Fiber = Npm.require('fibers');
+var publicSettings = Meteor.settings.public;
 
-var _SubscriptionManager = function (subscriptionsColl) {
-  var publicSettings = Meteor.settings.public;
+var _SubscriptionManager = function (subscriptionsColl, emailBuilder) {
   this.subscriptions = subscriptionsColl;
-  this.emailBuilder = new EmailBuilder(publicSettings && publicSettings.head.title);
+  this.emailBuilder = emailBuilder;
 };
 
 _SubscriptionManager.prototype._sendSubscribedEmail = function (email) {
@@ -54,4 +54,7 @@ _SubscriptionManager.prototype.sendEmailToAll = function (systemName, statusCode
   }, this);
 };
 
-SubscriptionManager = new _SubscriptionManager(SubscriptionsColl);
+SubscriptionManager = new _SubscriptionManager(
+  SubscriptionsColl,
+  new EmailBuilder(publicSettings && publicSettings.head.title)
+);

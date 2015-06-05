@@ -34,7 +34,7 @@ Package.onUse(function (api) {
 });
 
 Package.onTest(function (api) {
-  var testsFolder = 'tests/jasmine/server/unit/';
+  var testsFolder = 'tests/server/';
 
   api.use('sanjo:jasmine@0.13.6');
   api.use('subscription-manager');

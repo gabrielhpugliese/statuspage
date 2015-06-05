@@ -34,5 +34,5 @@ Package.onTest(function (api) {
   api.use('system-pinger');
   api.use(['http'], both);
 
-  api.addFiles('tests/jasmine/server/unit/system-pinger-spec.js', 'server');
+  api.addFiles('tests/server/system-pinger-spec.js', 'server');
 });
