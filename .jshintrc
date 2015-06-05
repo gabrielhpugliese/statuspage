@@ -108,6 +108,7 @@
         "SystemsColl": true,
         "System": true,
         "SubscriptionsColl": true,
-        "SubscriptionManager": true
+        "SubscriptionManager": true,
+        "EventEmitter": true
     }
 }

@@ -70,4 +70,12 @@ describe('Subscription Manager', function () {
       text: body
     });
   });
+
+  it('finds and returns all emails subscribed as cursor', function () {
+    var find = spyOn(SubscriptionManager.subscriptions, 'find');
+
+    SubscriptionManager.getEmailsCursor();
+
+    expect(find).toHaveBeenCalledWith({});
+  });
 });

@@ -18,6 +18,10 @@ Package.onUse(function (api) {
     'meteor-platform'
   ], both);
 
+  api.use([
+    'event-emitter'
+  ], 'server');
+
   api.addFiles(['system.js', 'collections.js'], both);
   api.addFiles(['publications.js', 'system-pinger.js', 'main.js'], 'server');
 

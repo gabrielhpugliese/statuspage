@@ -1,9 +1,9 @@
 'use strict';
 var Future = Npm.require('fibers/future');
 
-var _SystemPinger = function () {
-  this.systems = SystemsColl;
-  this.results = ResultsColl;
+var _SystemPinger = function (systemsColl, resultsColl) {
+  this.systems = systemsColl;
+  this.results = resultsColl;
 };
 
 _SystemPinger.prototype.addSystem = function (name, endpoint) {
@@ -63,6 +63,8 @@ _SystemPinger.prototype._save = function (name, statusCode) {
     updatedAt: new Date()
   }});
 
+  EventEmitter.emit('resultsaved');
+
   return true;
 };
 
@@ -74,4 +76,4 @@ _SystemPinger.prototype.pingAndSave = function (name) {
   this._save(name, statusCode);
 };
 
-SystemPinger = new _SystemPinger();
+SystemPinger = new _SystemPinger(SystemsColl, ResultsColl);

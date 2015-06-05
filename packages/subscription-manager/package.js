@@ -18,8 +18,12 @@ Package.onUse(function (api) {
     'system-pinger'
   ], both);
 
+  api.use([
+    'event-emitter'
+  ], 'server');
+
   api.addFiles(['collections.js',], both);
-  api.addFiles(['subscription-manager.js'], 'server');
+  api.addFiles(['main.js', 'subscription-manager.js'], 'server');
 
   api.export(['SubscriptionsColl'], both);
   api.export('SubscriptionManager', 'server');

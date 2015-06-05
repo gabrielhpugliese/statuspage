@@ -1,7 +1,7 @@
 'use strict';
 
-var _SubscriptionManager = function () {
-  this.subscriptions = SubscriptionsColl;
+var _SubscriptionManager = function (subscriptionsColl) {
+  this.subscriptions = subscriptionsColl;
 };
 
 _SubscriptionManager.prototype.addEmail = function (email) {
@@ -27,4 +27,21 @@ _SubscriptionManager.prototype.sendEmail = function (email, subject, body) {
   });
 };
 
-SubscriptionManager = new _SubscriptionManager();
+_SubscriptionManager.prototype.getEmailsCursor = function () {
+  return this.subscriptions.find({});
+};
+
+_SubscriptionManager.prototype.sendEmailToAll = function (systemName, statusCodeNow, statusCodeBefore) {
+  check(systemName, String);
+  check(statusCodeNow, Number);
+  check(statusCodeBefore, Number);
+
+  var emailSubject = 'System ' + systemName + ' status change';
+  var emailBody = 'The system ' + systemName + ' has from status ' + statusCodeBefore + 'changed to ' + statusCodeNow + ' status code.';
+
+  this.getEmailsCursor.forEach(function () {
+    this.sendEmail(systemName, emailSubject, emailBody);
+  }, this);
+};
+
+SubscriptionManager = new _SubscriptionManager(SubscriptionsColl);
