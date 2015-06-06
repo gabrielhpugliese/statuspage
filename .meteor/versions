@@ -18,6 +18,7 @@ html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0
 id-map@1.0.3
+incident-manager@0.0.1
 jquery@1.11.3_2
 json@1.0.3
 launch-screen@1.0.2
@@ -35,6 +36,7 @@ mongo@1.1.0
 mquandalle:stylus@1.1.1
 observe-sequence@1.0.6
 ordered-dict@1.0.3
+percolate:synced-cron@1.1.1
 random@1.0.3
 reactive-dict@1.1.0
 reactive-var@1.0.5

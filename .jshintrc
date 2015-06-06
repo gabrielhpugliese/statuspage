@@ -103,6 +103,7 @@
         "moment": true,
         "Email": true,
         "validator": true,
+        "SyncedCron": true,
 
         "ResultsColl": true,
         "SystemPinger": true,
@@ -111,6 +112,8 @@
         "SubscriptionsColl": true,
         "SubscriptionManager": true,
         "EventEmitter": true,
-        "EmailBuilder": true
+        "EmailBuilder": true,
+        "IncidentsColl": true,
+        "IncidentManager": true
     }
 }
