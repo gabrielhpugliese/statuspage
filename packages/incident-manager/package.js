@@ -14,7 +14,8 @@ Package.onUse(function (api) {
   api.use([
     'meteor-platform',
     'event-emitter',
-    'percolate:synced-cron'
+    'percolate:synced-cron',
+    'momentjs:moment'
   ], 'server');
 
   api.addFiles([
@@ -34,8 +35,10 @@ Package.onTest(function (api) {
 
   api.use('sanjo:jasmine@0.13.6');
   api.use('incident-manager');
+  api.use(['momentjs:moment'], 'server');
 
   api.addFiles([
-    testsFolder + 'incident-manager-spec.js'
+    testsFolder + 'incident-manager-spec.js',
+    testsFolder + 'collections-spec.js'
   ], 'server');
 });
