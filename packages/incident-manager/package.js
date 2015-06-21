@@ -29,7 +29,8 @@ Package.onUse(function (api) {
   api.addFiles([
     'incident-manager.js',
     'main.js',
-    'cron.js'
+    'cron.js',
+    'publications.js'
   ], 'server');
 
   api.export(['IncidentsColl'], both);

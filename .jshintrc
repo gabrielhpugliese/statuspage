@@ -104,6 +104,8 @@
         "Email": true,
         "validator": true,
         "SyncedCron": true,
+        "FlowRouter": true,
+        "FlowLayout": true,
 
         "ResultsColl": true,
         "SystemPinger": true,

@@ -13,3 +13,5 @@ underscore
 subscription-manager
 logandk:validator
 incident-manager
+meteorhacks:flow-router
+meteorhacks:flow-layout
