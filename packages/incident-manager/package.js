@@ -12,6 +12,10 @@ Package.onUse(function (api) {
   api.versionsFrom('METEOR@0.9.0');
 
   api.use([
+    'mongo'
+  ], both);
+
+  api.use([
     'meteor-platform',
     'event-emitter',
     'percolate:synced-cron',
@@ -23,7 +27,9 @@ Package.onUse(function (api) {
   ], both);
 
   api.addFiles([
-    'incident-manager.js'
+    'incident-manager.js',
+    'main.js',
+    'cron.js'
   ], 'server');
 
   api.export(['IncidentsColl'], both);
