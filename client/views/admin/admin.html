@@ -1,3 +1,7 @@
 <template name="Admin">
-  {{> Incidents}}
+  {{> loginButtons}}
+
+  {{#if isInRole 'admin'}}
+    {{> Incidents}}
+  {{/if}}
 </template>

@@ -12,7 +12,10 @@ Package.onUse(function (api) {
   api.versionsFrom('METEOR@0.9.0');
 
   api.use([
-    'mongo'
+    'mongo',
+    'accounts-password',
+    'accounts-ui',
+    'alanning:roles@1.2.11'
   ], both);
 
   api.use([
@@ -30,7 +33,8 @@ Package.onUse(function (api) {
     'incident-manager.js',
     'main.js',
     'cron.js',
-    'publications.js'
+    'publications.js',
+    'set-admin.js'
   ], 'server');
 
   api.export(['IncidentsColl'], both);

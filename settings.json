@@ -5,5 +5,8 @@
       "title": "StatusMonitor"
     }
   },
-  "emailFrom": "contact@gmail.com"
+  "emailFrom": "admin@statusmonitor.me",
+  "admins": [
+    "admin@statusmonitor.me"
+  ]
 }

@@ -106,6 +106,8 @@
         "SyncedCron": true,
         "FlowRouter": true,
         "FlowLayout": true,
+        "Accounts": true,
+        "Roles": true,
 
         "ResultsColl": true,
         "SystemPinger": true,

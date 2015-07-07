@@ -83,7 +83,8 @@ var Incidents = ReactMeteor.createClass({
 
   getMeteorState: function () {
     return {
-      incidents: IncidentsColl.find({}, {sort: {updatedAt: -1}}).fetch()
+      incidents: IncidentsColl.find({}, {sort: {updatedAt: -1}}).fetch(),
+      isAdmin: Package['alanning:roles'].Roles.userIsInRole('admin')
     };
   },
 
